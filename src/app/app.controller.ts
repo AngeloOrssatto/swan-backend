@@ -29,9 +29,4 @@ export class AppController {
   getProfile(@Request() req) {
     return req.user;
   }
-
-  @Get('users')
-  getUsers() {
-    return this.usersService.getAll();
-  }
 }

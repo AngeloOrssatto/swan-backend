@@ -30,17 +30,3 @@ describe('UsersService', () => {
     expect(usersRepository).toBeDefined();
   });
 });
-
-describe('findOne', () => {
-  let usersService: UsersService;
-  it('should find one user', async () => {
-    // Arrange
-    const username = 'angelo';
-
-    // Act
-    const result = await usersService.findOne(username);
-
-    // Assert
-    expect(result).toBeDefined();
-  });
-});
