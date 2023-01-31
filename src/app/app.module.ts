@@ -28,14 +28,14 @@ import { UsersModule } from './users/users.module';
         password: process.env.DATABASE_PASSWORD,
         name: process.env.DATABASE_NAME,
         synchronize: true, //only for dev
-        entities: [__dirname + '**/*.entity{.ts, .js}'],
-        // entities: [
-        //   ActivesEntity,
-        //   CategoriesEntity,
-        //   ReceiptsEntity,
-        //   RegistersEntity,
-        //   UsersEntity,
-        // ],
+        // entities: [__dirname + '**/*.entity{.ts, .js}'],
+        entities: [
+          ActivesEntity,
+          CategoriesEntity,
+          ReceiptsEntity,
+          RegistersEntity,
+          UsersEntity,
+        ],
       }),
       inject: [ConfigService],
     }),

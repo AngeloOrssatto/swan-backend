@@ -1,7 +1,10 @@
+import { UpdateUserDto } from './dtos/update-user.dto';
+import { CreateUserDto } from './dtos/create-user.dto';
 import { UsersEntity } from './../../database/entities/users.entity';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { NotFoundException } from '@nestjs/common/exceptions';
 
 @Injectable()
 export class UsersService {
@@ -10,22 +13,41 @@ export class UsersService {
     private readonly usersRepository: Repository<UsersEntity>,
   ) {}
 
-  async findOne(username: string): Promise<UsersEntity> {
-    const user = await this.usersRepository.findOne({
-      where: {
-        username: username,
-      },
+  async findAll() {
+    return await this.usersRepository.find({
+      select: ['id', 'username', 'email'],
     });
-    return user;
   }
 
-  async getAll(): Promise<UsersEntity[]> {
-    const users = await this.usersRepository
-      .createQueryBuilder()
-      .select('users')
-      .from(UsersEntity, 'users')
-      .getMany();
+  async findOneById(id: string) {
+    try {
+      return await this.usersRepository.findOneBy({ id: id });
+    } catch (error) {
+      throw new NotFoundException(error.message);
+    }
+  }
 
-    return users;
+  async findOneByUsername(username: string) {
+    try {
+      return await this.usersRepository.findOneBy({ username: username });
+    } catch (error) {
+      throw new NotFoundException(error.message);
+    }
+  }
+
+  async store(data: CreateUserDto) {
+    const user = this.usersRepository.create(data);
+    return await this.usersRepository.save(user);
+  }
+
+  async update(id: string, data: UpdateUserDto) {
+    const user = await this.usersRepository.findOneBy({ id: id });
+    this.usersRepository.merge(user, data);
+    return await this.usersRepository.save(user);
+  }
+
+  async destroy(id: string) {
+    await this.usersRepository.findOneBy({ id: id });
+    this.usersRepository.softDelete({ id });
   }
 }
