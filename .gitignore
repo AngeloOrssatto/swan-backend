@@ -35,4 +35,4 @@ lerna-debug.log*
 !.vscode/extensions.json
 
 .env
-src\auth\strategies\jwt\constants.ts
+src/auth/strategies/jwt/constants.ts
