@@ -2,6 +2,7 @@ import { UsersEntity } from './users.entity';
 import {
   Column,
   CreateDateColumn,
+  DeleteDateColumn,
   Entity,
   JoinColumn,
   ManyToOne,
@@ -38,6 +39,9 @@ export class ReceiptsEntity {
 
   @UpdateDateColumn({ name: 'updated_at' })
   updatedAt: Date;
+
+  @DeleteDateColumn({ name: 'deleted_at' })
+  deletedAt: Date;
 
   @ManyToOne(() => UsersEntity)
   @JoinColumn({ name: 'user' })
