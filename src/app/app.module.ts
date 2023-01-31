@@ -12,7 +12,7 @@ import { ActiveModule } from './active/active.module';
 import { CategoryModule } from './category/category.module';
 import { ReceiptModule } from './receipt/receipt.module';
 import { RegisterModule } from './register/register.module';
-import { AuthModule } from './auth/auth.module';
+import { AuthModule } from '../auth/auth.module';
 import { UsersModule } from './users/users.module';
 
 @Module({

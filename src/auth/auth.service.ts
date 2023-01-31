@@ -1,7 +1,8 @@
+import { UsersEntity } from './../database/entities/users.entity';
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { UsersService } from '../users/users.service';
-import { hashSync } from 'bcrypt';
+import { UsersService } from '../app/users/users.service';
+import { compareSync } from 'bcrypt';
 
 @Injectable()
 export class AuthService {
@@ -11,12 +12,17 @@ export class AuthService {
   ) {}
 
   async validateUser(username: string, pass: string): Promise<any> {
-    const user = await this.usersService.findOneByUsername(username);
-    if (user && user.password === hashSync(pass, 10)) {
-      const { password, ...result } = user;
-      return result;
+    let user: UsersEntity;
+    try {
+      user = await this.usersService.findOneByUsername(username);
+    } catch (error) {
+      return null;
     }
-    return null;
+    const isPasswordValid = compareSync(pass, user.password);
+    if (!isPasswordValid) {
+      return null;
+    }
+    return user;
   }
 
   async login(user: any) {

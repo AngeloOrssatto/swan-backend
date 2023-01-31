@@ -1,3 +1,4 @@
+import { JwtAuthGuard } from 'src/auth/strategies/jwt/jwt-auth.guard';
 import { UpdateUserDto } from './dtos/update-user.dto';
 import { CreateUserDto } from './dtos/create-user.dto';
 import {
@@ -11,10 +12,12 @@ import {
   ParseUUIDPipe,
   Post,
   Put,
+  UseGuards,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 
 @Controller('api/v1/users')
+@UseGuards(JwtAuthGuard)
 export class UsersController {
   constructor(private usersService: UsersService) {}
 
