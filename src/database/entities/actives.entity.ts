@@ -8,21 +8,21 @@ import {
 } from 'typeorm';
 import { CompanyTypeEnum } from '../enums/company-type.enum';
 
-@Entity()
+@Entity({ name: 'actives' })
 export class ActivesEntity {
-  @PrimaryGeneratedColumn()
-  id: number;
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
-  @Column({ length: 6 })
+  @Column({ name: 'company_code', length: 6 })
   companyCode: string;
 
-  @Column({ length: 500 })
+  @Column({ name: 'company_name', length: 500 })
   companyName: string;
 
-  @Column()
+  @Column({ name: 'type' })
   type: CompanyTypeEnum;
 
   @OneToOne(() => CategoriesEntity)
-  @JoinColumn()
+  @JoinColumn({ name: 'category' })
   category: CategoriesEntity;
 }

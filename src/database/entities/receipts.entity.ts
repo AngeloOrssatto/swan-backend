@@ -1,37 +1,45 @@
 import { UsersEntity } from './users.entity';
 import {
   Column,
+  CreateDateColumn,
   Entity,
   JoinColumn,
   ManyToOne,
   OneToOne,
   PrimaryGeneratedColumn,
+  UpdateDateColumn,
 } from 'typeorm';
 import { ReceiptsTypeEnum } from '../enums/receipts-type.enum';
 import { ActivesEntity } from './actives.entity';
 
-@Entity()
+@Entity({ name: 'receipts' })
 export class ReceiptsEntity {
-  @PrimaryGeneratedColumn()
-  id: number;
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
   @OneToOne(() => ActivesEntity)
-  @JoinColumn()
+  @JoinColumn({ name: 'active' })
   active: ActivesEntity;
 
-  @Column()
+  @Column({ name: 'quantity' })
   quantity: number;
 
-  @Column()
+  @Column({ name: 'value' })
   value: number;
 
-  @Column()
+  @Column({ name: 'date' })
   date: Date;
 
-  @Column()
+  @Column({ name: 'type' })
   type: ReceiptsTypeEnum;
 
+  @CreateDateColumn({ name: 'created_at' })
+  createdAt: Date;
+
+  @UpdateDateColumn({ name: 'updated_at' })
+  updatedAt: Date;
+
   @ManyToOne(() => UsersEntity)
-  @JoinColumn()
+  @JoinColumn({ name: 'user' })
   user: UsersEntity;
 }
