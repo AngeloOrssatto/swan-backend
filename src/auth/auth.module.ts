@@ -11,7 +11,7 @@ import { AuthController } from './auth.controller';
 
 @Module({
   imports: [
-    ConfigModule,
+    ConfigModule.forRoot({ isGlobal: true }),
     UsersModule,
     PassportModule,
     JwtModule.register({

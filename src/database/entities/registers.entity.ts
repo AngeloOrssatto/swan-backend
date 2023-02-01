@@ -1,3 +1,4 @@
+import { IsDate, IsInt } from 'class-validator';
 import { UsersEntity } from './users.entity';
 import {
   Column,
@@ -23,24 +24,29 @@ export class RegistersEntity {
   active: ActivesEntity;
 
   @Column({ name: 'quantity' })
+  @IsInt()
   quantity: number;
 
   @Column({ name: 'value' })
   value: number;
 
   @Column({ name: 'date' })
+  @IsDate()
   date: Date;
 
   @Column({ name: 'type' })
   type: RegistersTypeEnum;
 
   @CreateDateColumn({ name: 'created_at' })
+  @IsDate()
   createdAt: Date;
 
   @UpdateDateColumn({ name: 'updated_at' })
+  @IsDate()
   updatedAt: Date;
 
   @DeleteDateColumn({ name: 'deleted_at' })
+  @IsDate()
   deletedAt: Date;
 
   @ManyToOne(() => UsersEntity)
