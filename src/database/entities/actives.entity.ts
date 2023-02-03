@@ -5,9 +5,11 @@ import {
   JoinColumn,
   PrimaryGeneratedColumn,
   OneToOne,
+  OneToMany,
   CreateDateColumn,
   UpdateDateColumn,
   DeleteDateColumn,
+  ManyToOne,
 } from 'typeorm';
 import { Length, IsDate } from 'class-validator';
 import { CompanyTypeEnum } from '../enums/company-type.enum';
@@ -27,7 +29,7 @@ export class ActivesEntity {
   @Column({ name: 'type' })
   type: CompanyTypeEnum;
 
-  @OneToOne(() => CategoriesEntity)
+  @ManyToOne(() => CategoriesEntity)
   @JoinColumn({ name: 'category' })
   category: CategoriesEntity;
 
